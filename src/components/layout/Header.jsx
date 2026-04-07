@@ -19,7 +19,7 @@ export default function Header() {
   const isContactPage = pathname === '/contact'
   const isBookingPage = pathname === '/booking'
   const shouldUseSolidHeader = isBookingPage || scrolled
-  const isDarkHeader = isContactPage || !shouldUseSolidHeader
+  const isDarkHeader = !shouldUseSolidHeader
   const touchStartX = useRef(null)
 
   const isLinkActive = (href) => {
@@ -50,11 +50,11 @@ export default function Header() {
         onTouchEnd={handleTouchEnd}
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-          isContactPage
-            ? 'bg-transparent border-transparent'
-            : shouldUseSolidHeader
+          shouldUseSolidHeader
             ? 'bg-white/95 backdrop-blur-md shadow-soft border-b border-neutral-100'
-            : 'bg-transparent'
+            : isContactPage
+              ? 'bg-transparent border-transparent'
+              : 'bg-transparent'
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
