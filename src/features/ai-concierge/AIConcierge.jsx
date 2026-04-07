@@ -18,6 +18,7 @@ const RESPONSES = {
     placeholder: 'Запитайте щось...',
     openLabel: 'Відкрити AI чат',
     closeLabel: 'Закрити AI чат',
+    sendLabel: 'Надіслати повідомлення',
     title: 'AI Консьєрж',
     askAnything: 'Запитайте що завгодно',
     suggestions: [
@@ -40,6 +41,7 @@ const RESPONSES = {
     placeholder: 'Ask something...',
     openLabel: 'Open AI chat',
     closeLabel: 'Close AI chat',
+    sendLabel: 'Send message',
     title: 'AI Concierge',
     askAnything: 'Ask anything',
     suggestions: [
@@ -230,14 +232,16 @@ export default function AIConcierge() {
                       value={input}
                       onChange={(event) => setInput(event.target.value)}
                       placeholder={copy.placeholder}
-                      className="flex-1 h-10 rounded-md border border-neutral-200 bg-neutral-50 px-3 text-sm outline-none focus:border-primary-500"
+                      aria-label={copy.placeholder}
+                      className="flex-1 h-11 min-h-11 rounded-md border border-neutral-200 bg-neutral-50 px-3 text-sm outline-none focus:border-primary-500"
                     />
                     <button
                       type="submit"
                       disabled={!input.trim() || isTyping}
-                      className="w-10 h-10 rounded-md bg-primary-800 text-white inline-flex items-center justify-center disabled:opacity-45 disabled:cursor-not-allowed hover:bg-primary-700 transition-colors"
+                      aria-label={copy.sendLabel}
+                      className="min-h-11 min-w-11 shrink-0 rounded-md bg-primary-800 text-white inline-flex items-center justify-center disabled:opacity-45 disabled:cursor-not-allowed hover:bg-primary-700 transition-colors"
                     >
-                      <Send className="w-4 h-4" />
+                      <Send className="w-4 h-4" aria-hidden />
                     </button>
                   </div>
                 </form>

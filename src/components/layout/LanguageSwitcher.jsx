@@ -6,11 +6,18 @@ const OPTIONS = [
   { id: 'en', label: 'EN' },
 ]
 
+const OPTION_LABELS = {
+  ua: 'Українська',
+  en: 'English',
+}
+
 export default function LanguageSwitcher({ dark = false }) {
   const { language, setLanguage } = useLanguage()
 
   return (
     <div
+      role="group"
+      aria-label={language === 'ua' ? 'Мова сайту' : 'Site language'}
       className={cn(
         'inline-flex items-center rounded-full p-1 border',
         dark ? 'bg-white border-neutral-200' : 'bg-white/10 border-white/25 backdrop-blur-sm'
@@ -21,6 +28,8 @@ export default function LanguageSwitcher({ dark = false }) {
           key={option.id}
           type="button"
           onClick={() => setLanguage(option.id)}
+          aria-label={OPTION_LABELS[option.id]}
+          aria-pressed={language === option.id}
           className={cn(
             'px-3 py-1 text-xs font-semibold rounded-full transition-colors',
             language === option.id

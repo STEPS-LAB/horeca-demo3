@@ -9,7 +9,8 @@ export function LanguageProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('language', language)
-    document.documentElement.lang = language
+    // BCP 47: Ukrainian is "uk", not "ua" (fixes Lighthouse invalid [lang])
+    document.documentElement.lang = language === 'ua' ? 'uk' : 'en'
   }, [language])
 
   const value = useMemo(

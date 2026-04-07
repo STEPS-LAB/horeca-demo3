@@ -89,8 +89,9 @@ export default function MobileNav() {
                 </span>
               </div>
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-neutral-500 hover:text-primary-900 hover:bg-primary-50 rounded-sm transition-colors"
+                className="min-h-11 min-w-11 inline-flex items-center justify-center text-neutral-500 hover:text-primary-900 hover:bg-primary-50 rounded-sm transition-colors"
                 aria-label={isUa ? 'Закрити меню' : 'Close menu'}
               >
                 <X className="w-5 h-5" />

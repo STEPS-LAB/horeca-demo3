@@ -114,9 +114,9 @@ export default function AboutSection() {
                       <Icon className="w-5 h-5" style={{ color: '#1F3A2E' }} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold font-display text-primary-900 mb-1">
+                      <h3 className="text-sm font-bold font-display text-primary-900 mb-1">
                         {isUa ? title : FEATURES_EN[title] || title}
-                      </h4>
+                      </h3>
                       <p className="text-xs text-neutral-500 leading-relaxed">
                         {isUa ? description : FEATURES_DESC_EN[description] || description}
                       </p>

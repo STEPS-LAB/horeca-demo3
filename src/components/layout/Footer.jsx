@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { TreePine, Phone, Mail, MapPin, Instagram, Facebook, Youtube } from 'lucide-react'
 import { NAV_LINKS, NAV_LABELS } from '@/constants'
 import { useLanguage } from '@/context/LanguageContext'
+import { cn } from '@/utils/cn'
 
 const SOCIAL_LINKS = [
   { icon: Instagram, label: 'Instagram' },
@@ -10,8 +11,11 @@ const SOCIAL_LINKS = [
 ]
 
 export default function Footer() {
+  const { pathname } = useLocation()
   const { language } = useLanguage()
   const isUa = language === 'ua'
+  const mobileBookBarVisible =
+    pathname !== '/contact' && pathname !== '/booking' && pathname !== '/checkout'
   const t = {
     ctaTitle: isUa ? 'Готові забронювати ідеальний відпочинок?' : 'Ready to book your perfect stay?',
     ctaSubtitle: isUa
@@ -30,14 +34,19 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-primary-950 text-white">
+    <footer
+      className={cn(
+        'bg-primary-950 text-white',
+        mobileBookBarVisible && 'max-lg:pb-[5.5rem]'
+      )}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* CTA Banner */}
         <div className="pt-10">
           <div className="bg-primary-900/80 border border-primary-800 rounded-lg px-6 py-7 sm:px-8 sm:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold font-display text-white mb-2">{t.ctaTitle}</h3>
-              <p className="text-sm text-neutral-300">{t.ctaSubtitle}</p>
+              <p className="text-xl sm:text-2xl font-bold font-display text-white mb-2">{t.ctaTitle}</p>
+              <p className="text-sm text-neutral-200">{t.ctaSubtitle}</p>
             </div>
             <Link
               to="/booking"
@@ -58,7 +67,7 @@ export default function Footer() {
               </div>
               <span className="text-xl font-bold font-display">Готель</span>
             </div>
-            <p className="text-sm text-neutral-400 leading-relaxed">
+            <p className="text-sm text-neutral-300 leading-relaxed">
               {isUa
                 ? 'Преміальний лісовий курорт серед нескінченних карпатських лісів. Місце, де природа, розкіш та спокій стають єдиним цілим.'
                 : 'A premium forest resort among endless Carpathian woods. A place where nature, luxury, and peace become one.'}
@@ -67,15 +76,15 @@ export default function Footer() {
 
           {/* Hotel Links */}
           <div className="space-y-4 lg:justify-self-center">
-            <h4 className="text-sm font-semibold font-display tracking-widest uppercase text-secondary-400">
+            <p className="text-sm font-semibold font-display tracking-widest uppercase text-secondary-300">
               {t.hotelColumn}
-            </h4>
+            </p>
             <ul className="space-y-3">
               {NAV_LINKS.filter((link) => link.key !== 'contacts').map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm text-neutral-400 lg:hover:text-white transition-colors duration-150"
+                    className="text-sm text-neutral-200 lg:hover:text-white transition-colors duration-150"
                   >
                     {NAV_LABELS[language][link.key]}
                   </Link>
@@ -86,14 +95,14 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="space-y-4 lg:justify-self-end">
-            <h4 className="text-sm font-semibold font-display tracking-widest uppercase text-secondary-400">
+            <p className="text-sm font-semibold font-display tracking-widest uppercase text-secondary-300">
               {t.infoColumn}
-            </h4>
+            </p>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-secondary-500 shrink-0 mt-0.5" />
-                <div className="text-sm text-neutral-400">
-                  <p className="text-xs uppercase tracking-wide text-neutral-500 mb-1">{t.addressLabel}</p>
+                <MapPin className="w-4 h-4 text-secondary-400 shrink-0 mt-0.5" aria-hidden />
+                <div className="text-sm text-neutral-200">
+                  <p className="text-xs uppercase tracking-wide text-neutral-400 mb-1">{t.addressLabel}</p>
                   <a
                     href="https://maps.google.com/?q=гора+1,+Буковель,+Івано-Франківська+область,+Україна"
                     target="_blank"
@@ -105,32 +114,38 @@ export default function Footer() {
                 </div>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-secondary-500 shrink-0" />
-                <div className="text-sm text-neutral-400">
-                  <p className="text-xs uppercase tracking-wide text-neutral-500 mb-1">{t.phoneLabel}</p>
-                  <a href="tel:+380000000000" className="lg:hover:text-white transition-colors">
+                <Phone className="w-4 h-4 text-secondary-400 shrink-0" aria-hidden />
+                <div className="text-sm text-neutral-200">
+                  <p className="text-xs uppercase tracking-wide text-neutral-400 mb-1">{t.phoneLabel}</p>
+                  <a
+                    href="tel:+380000000000"
+                    className="lg:hover:text-white transition-colors"
+                  >
                     +38 (000) 000-00-00
                   </a>
                 </div>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-secondary-500 shrink-0" />
-                <div className="text-sm text-neutral-400">
-                  <p className="text-xs uppercase tracking-wide text-neutral-500 mb-1">{t.emailLabel}</p>
-                  <a href="mailto:hotel@gmail.com" className="lg:hover:text-white transition-colors">
+                <Mail className="w-4 h-4 text-secondary-400 shrink-0" aria-hidden />
+                <div className="text-sm text-neutral-200">
+                  <p className="text-xs uppercase tracking-wide text-neutral-400 mb-1">{t.emailLabel}</p>
+                  <a
+                    href="mailto:hotel@gmail.com"
+                    className="lg:hover:text-white transition-colors"
+                  >
                     hotel@gmail.com
                   </a>
                 </div>
               </li>
               <li>
-                <p className="text-xs uppercase tracking-wide text-neutral-500 mb-2">Social</p>
-                <div className="flex items-center gap-3">
+                <p className="text-xs uppercase tracking-wide text-neutral-400 mb-2">Social</p>
+                <div className="flex items-center gap-4 flex-wrap">
                   {SOCIAL_LINKS.map(({ icon: Icon, label }) => (
                     <button
                       key={label}
                       type="button"
                       aria-label={label}
-                      className="w-9 h-9 bg-primary-800 lg:hover:bg-primary-700 rounded-sm flex items-center justify-center transition-colors duration-200 cursor-default"
+                      className="min-h-11 min-w-11 bg-primary-800 lg:hover:bg-primary-700 rounded-sm flex items-center justify-center transition-colors duration-200 cursor-default"
                     >
                       <Icon className="w-4 h-4 text-neutral-300" />
                     </button>
@@ -143,7 +158,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="py-6 border-t border-primary-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-neutral-500 text-left">
+          <p className="text-xs text-neutral-400 text-left">
             © {new Date().getFullYear()} {isUa ? 'Готель' : 'Hotel'}. {t.rights}
             <span className="block mt-3 sm:mt-2 lg:inline lg:mt-0 lg:ml-1">
               {t.developedBy}{' '}
@@ -151,17 +166,23 @@ export default function Footer() {
                 href="https://stepslab.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-400 lg:hover:text-white transition-colors"
+                className="text-neutral-200 lg:hover:text-white transition-colors"
               >
                 STEPS LAB
               </a>.
             </span>
           </p>
-          <div className="flex items-center justify-start gap-6 w-full sm:w-auto">
-            <button type="button" className="text-xs text-neutral-500 lg:hover:text-white transition-colors cursor-default">
+          <div className="flex items-center justify-start gap-8 w-full sm:w-auto flex-wrap">
+            <button
+              type="button"
+              className="text-xs text-neutral-300 lg:hover:text-white transition-colors cursor-default text-left"
+            >
               {t.privacy}
             </button>
-            <button type="button" className="text-xs text-neutral-500 lg:hover:text-white transition-colors cursor-default">
+            <button
+              type="button"
+              className="text-xs text-neutral-300 lg:hover:text-white transition-colors cursor-default text-left"
+            >
               {t.terms}
             </button>
           </div>

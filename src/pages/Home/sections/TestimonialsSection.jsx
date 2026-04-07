@@ -37,6 +37,8 @@ export default function TestimonialsSection() {
   }, [next])
 
   const t = TESTIMONIALS[current]
+  const prevLabel = isUa ? 'Попередній відгук' : 'Previous testimonial'
+  const nextLabel = isUa ? 'Наступний відгук' : 'Next testimonial'
 
   return (
     <section className="section-padding" style={{ backgroundColor: '#F0EEE9' }}>
@@ -54,18 +56,22 @@ export default function TestimonialsSection() {
         <div className="mt-12 max-w-3xl mx-auto">
           <div className="relative">
             {/* Mobile controls */}
-            <div className="md:hidden absolute -top-12 right-0 z-10 flex items-center gap-2">
+            <div className="md:hidden absolute -top-12 right-0 z-10 flex items-center gap-3">
               <button
+                type="button"
                 onClick={prev}
-                className="w-9 h-9 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
+                aria-label={prevLabel}
+                className="min-h-11 min-w-11 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
               >
-                <ChevronLeft className="w-4 h-4 text-primary-900" />
+                <ChevronLeft className="w-4 h-4 text-primary-900" aria-hidden />
               </button>
               <button
+                type="button"
                 onClick={next}
-                className="w-9 h-9 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
+                aria-label={nextLabel}
+                className="min-h-11 min-w-11 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
               >
-                <ChevronRight className="w-4 h-4 text-primary-900" />
+                <ChevronRight className="w-4 h-4 text-primary-900" aria-hidden />
               </button>
             </div>
 
@@ -114,31 +120,45 @@ export default function TestimonialsSection() {
 
             {/* Desktop controls */}
             <button
+              type="button"
               onClick={prev}
-              className="hidden md:flex absolute -left-12 lg:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-medium items-center justify-center hover:bg-neutral-50 transition-colors"
+              aria-label={prevLabel}
+              className="hidden md:flex absolute -left-12 lg:-left-14 top-1/2 -translate-y-1/2 min-h-11 min-w-11 bg-white rounded-full shadow-medium items-center justify-center hover:bg-neutral-50 transition-colors"
             >
-              <ChevronLeft className="w-5 h-5 text-primary-900" />
+              <ChevronLeft className="w-5 h-5 text-primary-900" aria-hidden />
             </button>
             <button
+              type="button"
               onClick={next}
-              className="hidden md:flex absolute -right-12 lg:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-medium items-center justify-center hover:bg-neutral-50 transition-colors"
+              aria-label={nextLabel}
+              className="hidden md:flex absolute -right-12 lg:-right-14 top-1/2 -translate-y-1/2 min-h-11 min-w-11 bg-white rounded-full shadow-medium items-center justify-center hover:bg-neutral-50 transition-colors"
             >
-              <ChevronRight className="w-5 h-5 text-primary-900" />
+              <ChevronRight className="w-5 h-5 text-primary-900" aria-hidden />
             </button>
           </div>
 
           {/* Dots */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-3 mt-6">
             {TESTIMONIALS.map((_, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => goTo(i, i > current ? 1 : -1)}
-                className="h-1.5 rounded-full transition-all duration-300"
-                style={{
-                  width: i === current ? '24px' : '6px',
-                  backgroundColor: i === current ? '#1F3A2E' : '#D4D4D4',
-                }}
-              />
+                aria-label={
+                  isUa ? `Перейти до відгуку ${i + 1} з ${TESTIMONIALS.length}` : `Go to testimonial ${i + 1} of ${TESTIMONIALS.length}`
+                }
+                aria-current={i === current ? true : undefined}
+                className="min-h-11 min-w-[1.25rem] inline-flex items-center justify-center rounded-full transition-all duration-300 touch-manipulation"
+              >
+                <span
+                  className="h-1.5 rounded-full block transition-all duration-300"
+                  style={{
+                    width: i === current ? '24px' : '6px',
+                    backgroundColor: i === current ? '#1F3A2E' : '#D4D4D4',
+                  }}
+                  aria-hidden
+                />
+              </button>
             ))}
           </div>
         </div>

@@ -90,18 +90,14 @@ export default function Confirmation() {
 
         {/* Actions */}
         <div className="flex flex-col gap-3">
-          <Link to="/rooms" className="block">
-            <Button fullWidth variant="primary" onClick={reset}>
-              {isUa ? 'Забронювати ще номер' : 'Book another room'}
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link to="/" className="block">
-            <Button fullWidth variant="secondary" onClick={reset}>
-              <Home className="w-4 h-4" />
-              {isUa ? 'На головну' : 'Back to home'}
-            </Button>
-          </Link>
+          <Button as={Link} to="/rooms" fullWidth variant="primary" onClick={reset}>
+            {isUa ? 'Забронювати ще номер' : 'Book another room'}
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+          <Button as={Link} to="/" fullWidth variant="secondary" onClick={reset}>
+            <Home className="w-4 h-4" />
+            {isUa ? 'На головну' : 'Back to home'}
+          </Button>
         </div>
       </motion.div>
     </div>

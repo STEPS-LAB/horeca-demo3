@@ -85,24 +85,17 @@ export default function Header() {
                   key={link.href}
                   to={link.href}
                   className={cn(
-                    'px-4 py-2 text-sm font-medium font-display rounded-sm transition-colors duration-200 relative',
+                    'px-4 py-2.5 text-sm font-medium font-display rounded-sm transition-colors duration-200 underline underline-offset-4',
                     isDarkHeader
                       ? isLinkActive(link.href)
-                        ? 'text-white'
-                        : 'text-white/80 hover:text-white'
+                        ? 'text-white decoration-white'
+                        : 'text-white/90 hover:text-white decoration-white/35 hover:decoration-white/70'
                       : isLinkActive(link.href)
-                        ? 'text-primary-900'
-                        : 'text-neutral-600 hover:text-primary-900'
+                        ? 'text-primary-900 decoration-primary-900 decoration-2'
+                        : 'text-neutral-700 hover:text-primary-900 decoration-neutral-300 hover:decoration-primary-600'
                   )}
                 >
                   {NAV_LABELS[language][link.key]}
-                  <span
-                    className={cn(
-                      'absolute bottom-0 left-4 right-4 h-0.5 rounded-full transition-all duration-200',
-                      isDarkHeader ? 'bg-white' : 'bg-primary-900',
-                      isLinkActive(link.href) ? 'opacity-100' : 'opacity-0'
-                    )}
-                  />
                 </Link>
               ))}
             </nav>
@@ -110,25 +103,31 @@ export default function Header() {
             {/* Desktop Controls */}
             <div className="hidden lg:flex items-center gap-3">
               <LanguageSwitcher dark={!isDarkHeader} />
-              <Link to="/booking">
-                <Button size="sm" variant={isDarkHeader ? 'light' : 'primary'} className="rounded-lg">
-                  {isUa ? 'Забронювати' : 'Book now'}
-                </Button>
-              </Link>
+              <Button
+                as={Link}
+                to="/booking"
+                size="sm"
+                variant={isDarkHeader ? 'light' : 'primary'}
+                className="rounded-lg min-h-11 px-5"
+              >
+                {isUa ? 'Забронювати' : 'Book now'}
+              </Button>
             </div>
 
             {/* Mobile controls */}
             <div className="lg:hidden flex items-center gap-2">
               <LanguageSwitcher dark={!isDarkHeader} />
               <button
+                type="button"
                 className={cn(
-                  'p-2 rounded-sm transition-colors duration-200',
+                  'min-h-11 min-w-11 inline-flex items-center justify-center rounded-sm transition-colors duration-200',
                   isDarkHeader
                     ? 'text-white hover:bg-white/10'
                     : 'text-primary-900 hover:bg-primary-50'
                 )}
                 onClick={toggleMobileMenu}
                 aria-label={isUa ? 'Відкрити меню' : 'Open menu'}
+                aria-expanded={mobileMenuOpen}
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>

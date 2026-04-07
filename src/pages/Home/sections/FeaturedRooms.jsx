@@ -28,7 +28,7 @@ export default function FeaturedRooms() {
           />
           <Link
             to="/rooms"
-            className="flex items-center gap-2 text-sm font-semibold font-display text-primary-900 hover:text-primary-700 transition-colors shrink-0 group"
+            className="flex items-center gap-2 min-h-11 text-sm font-semibold font-display text-primary-900 hover:text-primary-700 transition-colors shrink-0 group underline underline-offset-4 decoration-primary-900/30 hover:decoration-primary-700"
           >
             {isUa ? 'Переглянути всі номери' : 'View all rooms'}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

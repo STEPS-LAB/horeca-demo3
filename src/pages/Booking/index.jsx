@@ -256,6 +256,7 @@ export default function Booking() {
               <button
                 type="button"
                 onClick={() => setGuests(Math.max(1, adults - 1), children)}
+                aria-label={isUa ? 'Зменшити кількість дорослих' : 'Decrease number of adults'}
                 className="w-11 h-11 rounded-lg border border-neutral-200 text-lg text-primary-900 transition-colors duration-200 hover:border-primary-300 hover:bg-primary-50"
               >
                 -
@@ -266,6 +267,7 @@ export default function Booking() {
               <button
                 type="button"
                 onClick={() => setGuests(Math.min(8, adults + 1), children)}
+                aria-label={isUa ? 'Збільшити кількість дорослих' : 'Increase number of adults'}
                 className="w-11 h-11 rounded-lg border border-neutral-200 text-lg text-primary-900 transition-colors duration-200 hover:border-primary-300 hover:bg-primary-50"
               >
                 +
@@ -274,7 +276,7 @@ export default function Booking() {
           </div>
           <Link
             to="/rooms"
-            className="inline-flex items-center gap-2 text-sm font-semibold font-display text-primary-900 hover:text-primary-700 transition-colors duration-200 mt-4 group"
+            className="inline-flex items-center gap-2 min-h-11 text-sm font-semibold font-display text-primary-900 hover:text-primary-700 transition-colors duration-200 mt-4 group underline underline-offset-4 decoration-primary-900/30 hover:decoration-primary-700"
           >
             {isUa ? 'Переглянути всі номери' : 'View all rooms'}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
