@@ -23,6 +23,10 @@ const FEATURES_DESC_EN = {
     'Swimming, fishing, kayaking and SUP on a crystal-clear mountain lake.',
 }
 
+function unsplashSrc(base, w) {
+  return `${base}?w=${w}&q=70&fm=webp&fit=crop`
+}
+
 export default function AboutSection() {
   const [ref, inView] = useIntersectionObserver()
   const { language } = useLanguage()
@@ -39,7 +43,9 @@ export default function AboutSection() {
               <div className="space-y-4">
                 <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-medium">
                   <img
-                    src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=560&q=72&fm=webp&fit=max"
+                    src={unsplashSrc('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', 560)}
+                    srcSet={`${unsplashSrc('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', 360)} 360w, ${unsplashSrc('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', 560)} 560w, ${unsplashSrc('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1', 800)} 800w`}
+                    sizes="(max-width: 640px) 50vw, 280px"
                     alt={isUa ? 'Природа курорту' : 'Resort nature'}
                     loading="lazy"
                     decoding="async"
@@ -48,7 +54,9 @@ export default function AboutSection() {
                 </div>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-medium">
                   <img
-                    src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=560&q=72&fm=webp&fit=max"
+                    src={unsplashSrc('https://images.unsplash.com/photo-1544161515-4ab6ce6db874', 560)}
+                    srcSet={`${unsplashSrc('https://images.unsplash.com/photo-1544161515-4ab6ce6db874', 360)} 360w, ${unsplashSrc('https://images.unsplash.com/photo-1544161515-4ab6ce6db874', 560)} 560w, ${unsplashSrc('https://images.unsplash.com/photo-1544161515-4ab6ce6db874', 800)} 800w`}
+                    sizes="(max-width: 640px) 50vw, 280px"
                     alt={isUa ? 'СПА процедури' : 'SPA procedures'}
                     loading="lazy"
                     decoding="async"
@@ -60,7 +68,9 @@ export default function AboutSection() {
               <div className="space-y-4 mt-8">
                 <div className="aspect-square rounded-lg overflow-hidden shadow-medium">
                   <img
-                    src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=560&q=72&fm=webp&fit=max"
+                    src={unsplashSrc('https://images.unsplash.com/photo-1414235077428-338989a2e8c0', 560)}
+                    srcSet={`${unsplashSrc('https://images.unsplash.com/photo-1414235077428-338989a2e8c0', 360)} 360w, ${unsplashSrc('https://images.unsplash.com/photo-1414235077428-338989a2e8c0', 560)} 560w, ${unsplashSrc('https://images.unsplash.com/photo-1414235077428-338989a2e8c0', 800)} 800w`}
+                    sizes="(max-width: 640px) 50vw, 280px"
                     alt={isUa ? 'Авторська кухня' : 'Signature cuisine'}
                     loading="lazy"
                     decoding="async"
@@ -69,7 +79,9 @@ export default function AboutSection() {
                 </div>
                 <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-medium">
                   <img
-                    src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=560&q=72&fm=webp&fit=max"
+                    src={unsplashSrc('https://images.unsplash.com/photo-1439066615861-d1af74d74000', 560)}
+                    srcSet={`${unsplashSrc('https://images.unsplash.com/photo-1439066615861-d1af74d74000', 360)} 360w, ${unsplashSrc('https://images.unsplash.com/photo-1439066615861-d1af74d74000', 560)} 560w, ${unsplashSrc('https://images.unsplash.com/photo-1439066615861-d1af74d74000', 800)} 800w`}
+                    sizes="(max-width: 640px) 50vw, 280px"
                     alt={isUa ? 'Озеро' : 'Lake'}
                     loading="lazy"
                     decoding="async"

@@ -107,6 +107,10 @@ export default function TestimonialsSection() {
                   <img
                     src={t.avatar}
                     alt={t.name}
+                    width={48}
+                    height={48}
+                    loading="lazy"
+                    decoding="async"
                     className="w-12 h-12 rounded-full object-cover border-2 border-secondary-200"
                     style={{ borderColor: '#D8C3A5' }}
                   />

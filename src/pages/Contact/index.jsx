@@ -4,6 +4,10 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { useLanguage } from '@/context/LanguageContext'
 
+function unsplashSrc(base, w) {
+  return `${base}?w=${w}&q=70&fm=webp&fit=crop`
+}
+
 export default function Contact() {
   const { language } = useLanguage()
   const isUa = language === 'ua'
@@ -13,8 +17,13 @@ export default function Contact() {
     <div className="min-h-screen bg-canvas">
       <section className="relative h-[19.2rem] sm:h-[22.4rem] overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=2000&q=80"
+          src={unsplashSrc('https://images.unsplash.com/photo-1448375240586-882707db888b', 960)}
+          srcSet={`${unsplashSrc('https://images.unsplash.com/photo-1448375240586-882707db888b', 640)} 640w, ${unsplashSrc('https://images.unsplash.com/photo-1448375240586-882707db888b', 960)} 960w, ${unsplashSrc('https://images.unsplash.com/photo-1448375240586-882707db888b', 1280)} 1280w, ${unsplashSrc('https://images.unsplash.com/photo-1448375240586-882707db888b', 1600)} 1600w`}
+          sizes="100vw"
           alt={isUa ? 'Контакти готелю' : 'Hotel contacts'}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-primary-950/65" />
