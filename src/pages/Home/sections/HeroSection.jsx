@@ -6,14 +6,18 @@ import { useLanguage } from '@/context/LanguageContext'
 
 const HERO_BASE = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e'
 
-/** Unsplash: fm=avif|webp|jpg — smaller payloads for LCP */
-function heroSrcSet(fm, widths = [640, 828, 1200, 1600, 2000]) {
-  return widths.map((w) => `${HERO_BASE}?w=${w}&q=68&fm=${fm}&fit=max ${w}w`).join(', ')
+const HERO_WIDTHS = [480, 640, 750, 1080, 1400, 1800]
+
+/** Unsplash AVIF/WebP/JPEG — легші файли; LCP частіше на тексті — тримаємо opacity:1 у motion */
+function heroSrcSet(fm) {
+  return HERO_WIDTHS.map((w) => `${HERO_BASE}?w=${w}&q=62&fm=${fm}&fit=max ${w}w`).join(', ')
 }
 
 const AVIF_SRC_SET = heroSrcSet('avif')
 const WEBP_SRC_SET = heroSrcSet('webp')
-const JPG_FALLBACK = `${HERO_BASE}?w=828&q=70&fm=jpg&fit=max`
+const JPG_FALLBACK = `${HERO_BASE}?w=750&q=65&fm=jpg&fit=max`
+
+const easeOut = [0.16, 1, 0.3, 1]
 
 export default function HeroSection() {
   const { language } = useLanguage()
@@ -22,19 +26,18 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Background — LCP залишається на оптимізованому зображенні */}
       <div className="absolute inset-0">
         <picture>
           <source type="image/avif" srcSet={AVIF_SRC_SET} sizes="100vw" />
           <source type="image/webp" srcSet={WEBP_SRC_SET} sizes="100vw" />
           <img
             src={JPG_FALLBACK}
-            srcSet={heroSrcSet('jpg')}
+            srcSet={HERO_WIDTHS.map((w) => `${HERO_BASE}?w=${w}&q=65&fm=jpg&fit=max ${w}w`).join(', ')}
             sizes="100vw"
             width={1920}
             height={1080}
             alt=""
-            decoding="async"
+            decoding="sync"
             fetchPriority="high"
             className="w-full h-full object-cover"
           />
@@ -56,10 +59,11 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-20 pb-4 sm:pb-0">
+        {/* opacity завжди 1 — LCP не чекає fade-in */}
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.8 }}
+          initial={reduceMotion ? false : { opacity: 1, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.2 }}
+          transition={{ duration: reduceMotion ? 0 : 0.4, delay: 0, ease: easeOut }}
           className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-black/25 backdrop-blur-sm border border-white/25 text-white text-sm font-medium"
         >
           <Award className="w-4 h-4 shrink-0 text-amber-100" aria-hidden />
@@ -67,13 +71,9 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.h1
-          initial={reduceMotion ? false : { opacity: 0, y: 40 }}
+          initial={reduceMotion ? false : { opacity: 1, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.8,
-            delay: reduceMotion ? 0 : 0.3,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+          transition={{ duration: reduceMotion ? 0 : 0.5, delay: 0, ease: easeOut }}
           className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold font-display text-white mb-6 leading-tight tracking-tight"
         >
           {isUa ? 'Де природа' : 'Where nature'}
@@ -84,9 +84,9 @@ export default function HeroSection() {
         </motion.h1>
 
         <motion.p
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          initial={reduceMotion ? false : { opacity: 1, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.5 }}
+          transition={{ duration: reduceMotion ? 0 : 0.45, delay: reduceMotion ? 0 : 0.04, ease: easeOut }}
           className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed"
         >
           {isUa
@@ -95,9 +95,9 @@ export default function HeroSection() {
         </motion.p>
 
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 1, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.6, delay: reduceMotion ? 0 : 0.7 }}
+          transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : 0.08, ease: easeOut }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button
@@ -121,9 +121,9 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: reduceMotion ? 0 : 0.8, delay: reduceMotion ? 0 : 1 }}
+          initial={reduceMotion ? false : { opacity: 1, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.45, delay: reduceMotion ? 0 : 0.12, ease: easeOut }}
           className="flex items-center justify-center gap-8 sm:gap-16 mt-16"
         >
           {[
