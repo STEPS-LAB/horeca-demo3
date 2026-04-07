@@ -2,8 +2,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import RootLayout from '../layout/RootLayout'
 import { PageSpinner } from '@/components/ui/Spinner'
+import Home from '@/pages/Home'
 
-const Home = lazy(() => import('@/pages/Home'))
 const Rooms = lazy(() => import('@/pages/Rooms'))
 const Booking = lazy(() => import('@/pages/Booking'))
 const Checkout = lazy(() => import('@/pages/Checkout'))
@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <SuspenseWrapper><Home /></SuspenseWrapper>,
+        element: <Home />,
       },
       {
         path: 'rooms',

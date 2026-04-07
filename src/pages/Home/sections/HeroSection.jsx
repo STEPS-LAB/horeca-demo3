@@ -4,18 +4,9 @@ import { Award } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import { useLanguage } from '@/context/LanguageContext'
 
-const HERO_BASE = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e'
-
-const HERO_WIDTHS = [480, 640, 750, 1080, 1400, 1800]
-
-/** Unsplash AVIF/WebP/JPEG — легші файли; LCP частіше на тексті — тримаємо opacity:1 у motion */
-function heroSrcSet(fm) {
-  return HERO_WIDTHS.map((w) => `${HERO_BASE}?w=${w}&q=62&fm=${fm}&fit=max ${w}w`).join(', ')
-}
-
-const AVIF_SRC_SET = heroSrcSet('avif')
-const WEBP_SRC_SET = heroSrcSet('webp')
-const JPG_FALLBACK = `${HERO_BASE}?w=750&q=65&fm=jpg&fit=max`
+/** Локальні WebP (той самий кадр, що й раніше з Unsplash) — без зовнішнього хоста в ланцюгу LCP */
+const HERO_SRC_SET = '/images/hero-960.webp 960w, /images/hero-1600.webp 1600w'
+const HERO_SRC = '/images/hero-960.webp'
 
 const easeOut = [0.16, 1, 0.3, 1]
 
@@ -27,21 +18,17 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
-        <picture>
-          <source type="image/avif" srcSet={AVIF_SRC_SET} sizes="100vw" />
-          <source type="image/webp" srcSet={WEBP_SRC_SET} sizes="100vw" />
-          <img
-            src={JPG_FALLBACK}
-            srcSet={HERO_WIDTHS.map((w) => `${HERO_BASE}?w=${w}&q=65&fm=jpg&fit=max ${w}w`).join(', ')}
-            sizes="100vw"
-            width={1920}
-            height={1080}
-            alt=""
-            decoding="sync"
-            fetchPriority="high"
-            className="w-full h-full object-cover"
-          />
-        </picture>
+        <img
+          src={HERO_SRC}
+          srcSet={HERO_SRC_SET}
+          sizes="100vw"
+          width={1600}
+          height={1066}
+          alt=""
+          decoding="async"
+          fetchPriority="high"
+          className="w-full h-full object-cover"
+        />
         <div
           className="absolute inset-0"
           style={{
