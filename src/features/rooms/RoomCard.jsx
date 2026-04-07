@@ -7,6 +7,7 @@ import Rating from '@/components/ui/Rating'
 import { AMENITIES } from '@/constants'
 import { useLanguage } from '@/context/LanguageContext'
 import { localizeRoom } from '@/i18n/rooms'
+import { optimizeUnsplashImage } from '@/utils/imageUrl'
 
 export default function RoomCard({ room, index = 0 }) {
   const { language } = useLanguage()
@@ -36,10 +37,11 @@ export default function RoomCard({ room, index = 0 }) {
           {/* Image */}
           <div className="relative h-56 sm:h-64 overflow-hidden">
             <img
-              src={localizedRoom.images[0]}
+              src={optimizeUnsplashImage(localizedRoom.images[0])}
               alt={localizedRoom.name}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
             {/* Overlay badges */}
             <div className="absolute top-3 left-3 flex items-center gap-2">

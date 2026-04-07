@@ -2,8 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import AIConcierge from '@/features/ai-concierge/AIConcierge'
-import MobileBookingBar from '@/features/booking/MobileBookingBar'
+import LazyGlobalWidgets from './LazyGlobalWidgets'
 
 export default function RootLayout() {
   const { pathname, hash } = useLocation()
@@ -32,8 +31,7 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <Footer />
-      <AIConcierge />
-      <MobileBookingBar />
+      <LazyGlobalWidgets />
     </div>
   )
 }

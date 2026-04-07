@@ -19,12 +19,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          query: ['@tanstack/react-query'],
-          motion: ['framer-motion'],
-          forms: ['react-hook-form', 'zod', '@hookform/resolvers'],
+        manualChunks(id) {
+          if (id.includes('node_modules/framer-motion')) return 'motion'
+          if (id.includes('node_modules/react-router')) return 'router'
+          if (id.includes('node_modules/@tanstack/react-query')) return 'query'
+          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) return 'react-vendor'
         },
       },
     },

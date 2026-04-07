@@ -133,8 +133,8 @@ export default function MobileNav() {
               </div>
               <div className="flex items-center gap-3 text-sm text-neutral-500">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:info@chudodiievo.com" className="hover:text-primary-900 transition-colors">
-                  info@chudodiievo.com
+                <a href="mailto:example@mail.com" className="hover:text-primary-900 transition-colors">
+                  example@mail.com
                 </a>
               </div>
             </div>
